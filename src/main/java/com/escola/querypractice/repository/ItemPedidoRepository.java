@@ -10,4 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Voce nao precisa mexer neste arquivo.
  */
 public interface ItemPedidoRepository extends JpaRepository<ItemPedido, Long> {
+
+
 }

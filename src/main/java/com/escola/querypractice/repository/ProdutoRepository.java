@@ -1,8 +1,12 @@
 package com.escola.querypractice.repository;
 
+import com.escola.querypractice.model.Cliente;
 import com.escola.querypractice.model.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -50,4 +54,36 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     // TODO: escreva aqui os metodos dos exercicios de produto.
 
+    List<Produto> findByNome(String nome);
+
+    List<Produto> findByPrecoGreaterThan(BigDecimal preco);
+
+    List<Produto> findByAtivoTrue();
+
+    List<Produto> findByCategoriaNome(String nome);
+
+    List<Produto> findByNomeContainingIgnoreCase(String termo);
+
+    long countByCategoriaNome(String nome);
+
+    List<Produto> findByPrecoBetweenOrderByPrecoAsc(BigDecimal min, BigDecimal max);
+
+    List<Produto> findByEstoqueLessThanAndAtivoTrue(Integer estoque);
+
+    List<Produto> findTop3ByOrderByPrecoDesc();
+
+    @Query("SELECT p FROM Produto p WHERE p.preco BETWEEN :min AND :max")
+    List<Produto> buscarPorFaixaDePreco(BigDecimal min, BigDecimal max);
+
+    @Query("SELECT DISTINCT i.produto FROM ItemPedido i")
+    List<Produto> buscarProdutosVendidos();
+
+    @Query("SELECT p FROM Produto p WHERE p NOT IN (SELECT i.produto FROM ItemPedido i)")
+    List<Produto> buscarProdutosNuncaVendidos();
+
+
 }
+
+
+
+

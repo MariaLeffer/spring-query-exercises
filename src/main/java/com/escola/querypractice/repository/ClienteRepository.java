@@ -2,6 +2,12 @@ package com.escola.querypractice.repository;
 
 import com.escola.querypractice.model.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  * =====================================================================
@@ -33,4 +39,23 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     // TODO: escreva aqui os metodos dos exercicios de cliente.
 
+    List<Cliente> findByEstado(String estado);
+
+    List<Cliente> findByDataNascimentoBefore(LocalDate data);
+
+    @Query("SELECT c FROM Cliente c JOIN c.pedidos p GROUP BY c HAVING SUM(p.valorTotal) > :valor")
+    List<Cliente> buscarClientesQueGastaramMaisQue(@Param("valor") BigDecimal valor);
+
+
+
+
+
+
+
+
+
+
+
+
 }
+

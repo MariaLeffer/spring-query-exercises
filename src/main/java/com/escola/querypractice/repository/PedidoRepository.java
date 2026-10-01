@@ -1,7 +1,10 @@
 package com.escola.querypractice.repository;
 
 import com.escola.querypractice.model.Pedido;
+import com.escola.querypractice.model.StatusPedido;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  * =====================================================================
@@ -31,5 +34,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     // TODO: escreva aqui os metodos dos exercicios de pedido.
+
+  List<Pedido> findByStatus(StatusPedido status);
+
+  List<Pedido> findByClienteIdOrderByDataPedidoDesc(Long clienteId);
+
 
 }
